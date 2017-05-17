@@ -1,28 +1,24 @@
 package com.example.david.cheapfood;
 
-/**
- * Created by David on 09.05.2017.
- */
-
 public class Offer {
 
-    private int id;
+    private long id;
     private String name;
     private double price;
     private String description;
     private String address;
-    private int contigent;
+    private long contingent;
 
-    public Offer(int id, String name, double price, String description, String address, int contigent) {
+    public Offer(long id, String name, double price, String description, String address, long contigent) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
-        this.contigent = contigent;
+        this.contingent = contigent;
         this.address = address;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -34,12 +30,12 @@ public class Offer {
         this.address = address;
     }
 
-    public int getContigent() {
-        return contigent;
+    public long getContigent() {
+        return contingent;
     }
 
     public void setContigent(int contigent) {
-        this.contigent = contigent;
+        this.contingent = contigent;
     }
 
     public void setId(int id) {
@@ -68,5 +64,10 @@ public class Offer {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + id + " | Name: " + name;
     }
 }
