@@ -17,20 +17,21 @@ public class BuyActivity extends AppCompatActivity {
 
         //Get the intent that started us to find the parameter (extra)
         Intent toy = getIntent();
+        int id = toy.getIntExtra("id", 0);
         double price = toy.getDoubleExtra("price", 0);
-        int contigent = toy.getIntExtra("contigent",0);
+        long contigent = toy.getLongExtra("contigent",0);
         String name = toy.getStringExtra("name");
         String address = toy.getStringExtra("address");
         String description = toy.getStringExtra("description");
 
         //Display the value to the screen.
-        TextView tvcontigent = (TextView) findViewById(R.id.tv_contingent);;
+        TextView tvcontigent = (TextView) findViewById(R.id.tv_contingent);
         tvcontigent.setText("Es sind noch "+contigent + " Einheiten vorhanden");
 
-        TextView tvprice = (TextView) findViewById(R.id.tv_price);;
+        TextView tvprice = (TextView) findViewById(R.id.tv_price);
         tvprice.setText(price+" Euro");
 
-        TextView tvname = (TextView) findViewById(R.id.tv_name);;
+        TextView tvname = (TextView) findViewById(R.id.tv_name);
         tvname.setText(name.toString());
 
         TextView tvaddress = (TextView) findViewById(R.id.tv_address);

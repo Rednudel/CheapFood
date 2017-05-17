@@ -34,7 +34,7 @@ public class Offer {
         return contingent;
     }
 
-    public void setContigent(int contigent) {
+    public void setContigent(long contigent) {
         this.contingent = contigent;
     }
 

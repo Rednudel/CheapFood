@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         //create a few offers
         Offer offer1 = dataSource.createOffer(new Offer(1,"K&U Brötchen", 0.2, "Brötchen vom Vortag","Edeka Ooser Hauptstr.6 76473 Iffezheim",10));
-        Offer offer2 = dataSource.createOffer(new Offer(1,"K&U Brötchen", 0.2, "Brötchen vom Vortag","Edeka Ooser Hauptstr.6 76473 Iffezheim",10));
+        Offer offer2 = dataSource.createOffer(new Offer(1,"K&U Brötchen", 0.2, "Brötchen vom Vortag","Edeka Ooser Hauptstr.6 76473 Iffezheim",2));
         Offer offer3 = dataSource.createOffer(new Offer(1,"K&U Brötchen", 0.2, "Brötchen vom Vortag","Edeka Ooser Hauptstr.6 76473 Iffezheim",10));
 
         showAllListEntries();
@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //Call the next Activity
                 Intent toy = new Intent(MainActivity.this, BuyActivity.class);
+                toy.putExtra("id", id);
                 toy.putExtra("price", price);
 
                 toy.putExtra("contigent", contigent);
