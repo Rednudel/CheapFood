@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".BuyActivity"></activity>
+        <activity android:name=".PaypalBuyActivity"></activity>
     </application>
 
 </manifest>

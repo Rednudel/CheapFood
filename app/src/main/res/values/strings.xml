@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CheapFood</string>
+    <string name="button_pay">Checkout</string>
 </resources>

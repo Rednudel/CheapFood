@@ -6,6 +6,12 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+
+import static com.example.david.cheapfood.R.id.bt_buy;
+
 
 public class BuyActivity extends AppCompatActivity {
 
@@ -40,11 +46,20 @@ public class BuyActivity extends AppCompatActivity {
         TextView tvdescription = (TextView) findViewById(R.id.tv_description);
         tvdescription.setText(description);
 
-        Button btbuy = (Button) findViewById(R.id.bt_buy);
-
-
-
+        Button btbuy = (Button) findViewById(bt_buy);
+        btbuy.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(BuyActivity.this,PaypalBuyActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
+    /*public void openPaypal(View view){
+        Intent intent = new Intent(BuyActivity.this, PaypalBuyActivity.class);
+        startActivity(intent);
+    }
+    */
 
 }
