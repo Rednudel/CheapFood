@@ -43,6 +43,6 @@ public class ConfirmationActivity extends AppCompatActivity {
         //Showing the details from json object
         textViewId.setText(jsonDetails.getString("id"));
         textViewStatus.setText(jsonDetails.getString("state"));
-        textViewAmount.setText(paymentAmount+" USD");
+        textViewAmount.setText(paymentAmount+" EUR");
     }
 }

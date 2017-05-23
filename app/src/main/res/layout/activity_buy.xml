@@ -15,13 +15,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="38dp"
+        android:onClick="onClick"
         android:text="@string/button_pay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:ignore="MissingConstraints,RtlHardcoded"
-        tools:layout_constraintBottom_creator="1" />
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -83,7 +86,36 @@
             android:text="Kontigent = 5"
             android:textSize="20dp"
             tools:ignore="HardcodedText,InefficientWeight,RtlHardcoded,SpUsage" />
-
     </LinearLayout>
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="143dp"
+        android:layout_height="67dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/bt_buy"
+        android:layout_marginStart="19dp"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="19dp"
+        app:layout_constraintLeft_toRightOf="@+id/textView"
+        android:layout_marginLeft="19dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="137dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginStart="40dp"
+        android:text="Wie viele möchten Sie kaufen?"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/spinner1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/spinner1"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_constraintBottom_creator="1"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
 </android.support.constraint.ConstraintLayout>
