@@ -1,0 +1,5 @@
+<application>
+  <component name="PathMacrosImpl">
+    <macro name="GRADLE_HOME" value="C:/Zimmermann/gradle" />
+  </component>
+</application>
