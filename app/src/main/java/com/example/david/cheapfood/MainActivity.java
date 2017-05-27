@@ -1,6 +1,7 @@
 package com.example.david.cheapfood;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -8,6 +9,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.david.cheapfood.Offer.Offer;
+import com.example.david.cheapfood.Offer.OfferListAdapter;
+import com.example.david.cheapfood.Offer.OffersDataSource;
 
 import java.util.List;
 
@@ -23,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        String sharedPrefs = this.getResources().getString(R.string.SHARED_PREFS);
+        SharedPreferences settings = getSharedPreferences(sharedPrefs, 0);
+
         setContentView(R.layout.activity_main);
 
         dataSource = new OffersDataSource(this);
@@ -31,24 +39,25 @@ public class MainActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "open database.");
         dataSource.open();
 
-        //create a few offers
-        Offer offer1 = dataSource.createOffer(new Offer(1,"K&U Brötchen", 0.2, "Brötchen vom Vortag","Edeka Ooser Hauptstr.6 76473 Iffezheim",10));
-        Offer offer2 = dataSource.createOffer(new Offer(1,"K&U Brötchen", 0.2, "Brötchen vom Vortag","Edeka Ooser Hauptstr.6 76473 Iffezheim",2));
-        Offer offer3 = dataSource.createOffer(new Offer(1,"K&U Brötchen", 0.2, "Brötchen vom Vortag","Edeka Ooser Hauptstr.6 76473 Iffezheim",10));
+        if (settings.getBoolean("first_launch", true)) {
+            Log.d("LOG_TAG", "First launch");
+
+            Offer offer1 = dataSource.createOffer(new Offer(1,"K&U Brötchen", 0.2, "Brötchen vom Vortag","Edeka Ooser Hauptstr.6 76473 Iffezheim",10));
+            Offer offer2 = dataSource.createOffer(new Offer(2,"K&U Brezen", 0.5, "Brezen vom Vortag","Edeka Ooser Hauptstr.6 76473 Iffezheim",7));
+            Offer offer3 = dataSource.createOffer(new Offer(3,"K&U Tomaten Mozzarella Ciabatta", 1.5, "vor 2h belegt","Edeka Ooser Hauptstr.6 76473 Iffezheim",3));
+
+            settings.edit().putBoolean("first_launch", false).apply();
+        }
 
         showAllListEntries();
-
-        //mOfferList = dataSource.getAllOffers();
-        //Init adapter
-        //adapter = new OfferListAdapter(getApplicationContext(),mOfferList);
-        //lvOffer.setAdapter(adapter);
 
         lvOffer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                 //Do something
+                long offerId = mOfferList.get(position).getId();
                 double price = mOfferList.get(position).getPrice();
-                long contigent = mOfferList.get(position).getContigent();
+                long contingent = mOfferList.get(position).getContigent();
                 String description = mOfferList.get(position).getDescription();
                 String name = mOfferList.get(position).getName();
                 String adress = mOfferList.get(position).getAddress();
@@ -58,10 +67,10 @@ public class MainActivity extends AppCompatActivity {
 
                 //Call the next Activity
                 Intent toy = new Intent(MainActivity.this, BuyActivity.class);
-                toy.putExtra("id", id);
+                toy.putExtra("id", offerId);
                 toy.putExtra("price", price);
 
-                toy.putExtra("contigent", contigent);
+                toy.putExtra("contingent", contingent);
                 toy.putExtra("description", description);
                 toy.putExtra("name", name);
                 toy.putExtra("address", adress);
@@ -75,20 +84,24 @@ public class MainActivity extends AppCompatActivity {
         dataSource.close();
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+        dataSource.open();
+        showAllListEntries();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        dataSource.close();
+    }
+
     private void showAllListEntries () {
         mOfferList = dataSource.getAllOffers();
 
         adapter = new OfferListAdapter(getApplicationContext(),mOfferList);
         lvOffer.setAdapter(adapter);
-
-        /*
-        ArrayAdapter<Offer> offerArrayAdapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_multiple_choice,
-                mOfferList);
-
-        lvOffer.setAdapter(offerArrayAdapter);
-        */
     }
 
 }

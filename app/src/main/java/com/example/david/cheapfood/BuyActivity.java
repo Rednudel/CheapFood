@@ -11,6 +11,10 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.david.cheapfood.Offer.Offer;
+import com.example.david.cheapfood.Offer.OffersDataSource;
+import com.example.david.cheapfood.PurchaseHistory.PurchaseHistory;
+import com.example.david.cheapfood.PurchaseHistory.PurchaseHistoryDataSource;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -21,11 +25,15 @@ import org.json.JSONException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 
 public class BuyActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private Offer offer;
+    private OffersDataSource offersDS;
+    private PurchaseHistory purchaseHistory;
+    private PurchaseHistoryDataSource purchaseHistoryDS;
 
     private String paymentAmount;
     private Button buttonPay;
@@ -46,24 +54,30 @@ public class BuyActivity extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy);
 
+        offersDS = new OffersDataSource(this);
+        purchaseHistoryDS = new PurchaseHistoryDataSource(this);
+
         //Get the intent that started us to find the parameter (extra)
         Intent toy = getIntent();
-        int id = toy.getIntExtra("id", 0);
+        //int id = toy.getIntExtra("id", 0);
+        long id = toy.getLongExtra("id", 0);
         double price = toy.getDoubleExtra("price", 0);
-        long contigent = toy.getLongExtra("contigent", 0);
+        long contingent = toy.getLongExtra("contingent", 0);
         String name = toy.getStringExtra("name");
         String address = toy.getStringExtra("address");
         String description = toy.getStringExtra("description");
 
+        offer = new Offer(id, name, price, description, address, contingent);
+
         //Display the value to the screen.
-        TextView tvcontigent = (TextView) findViewById(R.id.tv_contingent);
-        tvcontigent.setText("Es sind noch " + contigent + " Einheiten vorhanden");
+        TextView tvcontingent = (TextView) findViewById(R.id.tv_contingent);
+        tvcontingent.setText("Es sind noch " + contingent + " Einheiten vorhanden");
 
         TextView tvprice = (TextView) findViewById(R.id.tv_price);
         tvprice.setText(price + " Euro");
 
         TextView tvname = (TextView) findViewById(R.id.tv_name);
-        tvname.setText(name.toString());
+        tvname.setText(name);
 
         TextView tvaddress = (TextView) findViewById(R.id.tv_address);
         tvaddress.setText(address);
@@ -74,7 +88,7 @@ public class BuyActivity extends AppCompatActivity implements View.OnClickListen
         Spinner dropdown = (Spinner)findViewById(R.id.spinner1);
         ArrayList<Long> list = new ArrayList<>();
         long i = 1;
-        while ( i <= contigent ) {
+        while ( i <= contingent ) {
             list.add(i);
             i++;
         }
@@ -83,7 +97,6 @@ public class BuyActivity extends AppCompatActivity implements View.OnClickListen
                 android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropdown.setAdapter(dataAdapter);
-
     }
 
 
@@ -91,9 +104,16 @@ public class BuyActivity extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
 
         Spinner dropdown = (Spinner)findViewById(R.id.spinner1);
-        Intent toy = getIntent();
+        //Intent toy = getIntent();
         buttonPay = (Button) findViewById(R.id.bt_buy);
-        amount = toy.getDoubleExtra("price", 0) *  Double.parseDouble(dropdown.getSelectedItem().toString());
+
+        //double quantity = Double.parseDouble(dropdown.getSelectedItem().toString());
+        //amount = toy.getDoubleExtra("price", 0) * quantity;
+
+        long quantity = Long.parseLong(dropdown.getSelectedItem().toString());
+        amount = offer.getPrice() * quantity;
+
+        purchaseHistory = new PurchaseHistory(1, 1, offer.getName(), offer.getPrice(), quantity, new Date());
 
         buttonPay.setOnClickListener(this);
 
@@ -104,6 +124,9 @@ public class BuyActivity extends AppCompatActivity implements View.OnClickListen
         startService(intent);
 
         getPayment();
+
+        offersDS.updateContingent(offer.getId(), offer.getContigent() - quantity);
+        purchaseHistoryDS.createPurchaseHistory(purchaseHistory);
     }
 
     //Paypal intent request code to track onActivityResult method
@@ -174,5 +197,18 @@ public class BuyActivity extends AppCompatActivity implements View.OnClickListen
     }
     */
 
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        offersDS.open();
+        purchaseHistoryDS.open();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        offersDS.close();
+        purchaseHistoryDS.close();
     }
 }

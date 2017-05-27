@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">CheapFood</string>
     <string name="button_pay">Checkout with PayPal</string>
+
+    <string name="SHARED_PREFS">SharedPreferences</string>
+
 </resources>

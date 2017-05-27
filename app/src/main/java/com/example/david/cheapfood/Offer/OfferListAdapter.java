@@ -1,11 +1,12 @@
-package com.example.david.cheapfood;
+package com.example.david.cheapfood.Offer;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.content.Context;
-
 import android.widget.TextView;
+
+import com.example.david.cheapfood.R;
 
 import java.util.List;
 
@@ -46,13 +47,13 @@ public class OfferListAdapter extends BaseAdapter{
         TextView tvPrice = (TextView)v.findViewById(R.id.tv_price);
         TextView tvDescription = (TextView)v.findViewById(R.id.tv_description);
         TextView tvAddress = (TextView)v.findViewById(R.id.tv_address);
-        TextView tvContigent = (TextView)v.findViewById(R.id.tv_contingent);
+        TextView tvContingent = (TextView)v.findViewById(R.id.tv_contingent);
         //Set text for TextView
         tvName.setText(mOfferList.get(position).getName());
         tvPrice.setText(String.valueOf(mOfferList.get(position).getPrice())+ " €");
         tvDescription.setText(mOfferList.get(position).getDescription());
         tvAddress.setText(mOfferList.get(position).getAddress());
-        tvContigent.setText("Kontigent = " + mOfferList.get(position).getContigent());
+        tvContingent.setText("Kontingent = " + mOfferList.get(position).getContigent());
 
         //Save product id to tag
         v.setTag(mOfferList.get(position).getId());

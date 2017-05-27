@@ -1,4 +1,4 @@
-package com.example.david.cheapfood;
+package com.example.david.cheapfood.Offer;
 
 public class Offer {
 
@@ -9,12 +9,12 @@ public class Offer {
     private String address;
     private long contingent;
 
-    public Offer(long id, String name, double price, String description, String address, long contigent) {
+    public Offer(long id, String name, double price, String description, String address, long contingent) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
-        this.contingent = contigent;
+        this.contingent = contingent;
         this.address = address;
     }
 
@@ -34,7 +34,7 @@ public class Offer {
         return contingent;
     }
 
-    public void setContigent(long contigent) {
+    public void setContingent(long contigent) {
         this.contingent = contigent;
     }
 
