@@ -17,6 +17,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".BuyActivity"></activity>
+        <activity android:name=".ConfirmationActivity" />
     </application>
-
 </manifest>
