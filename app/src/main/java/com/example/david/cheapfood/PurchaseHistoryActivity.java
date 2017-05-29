@@ -3,7 +3,6 @@ package com.example.david.cheapfood;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,22 +12,27 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.Date;
 
-import com.example.david.cheapfood.Offer.Offer;
-import com.example.david.cheapfood.Offer.OfferListAdapter;
-import com.example.david.cheapfood.Offer.OffersDataSource;
+import com.example.david.cheapfood.PurchaseHistory.PurchaseListAdapter;
+import com.example.david.cheapfood.PurchaseHistory.PurchaseHistory;
+import com.example.david.cheapfood.PurchaseHistory.PurchaseHistoryDataSource;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * Created by Julian on 29.05.2017.
+ */
+
+public class PurchaseHistoryActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
-    private ListView lvOffer;
-    private OfferListAdapter adapter;
-    public List<Offer> mOfferList;
-    private OffersDataSource dataSource;
+    private ListView lvPurchase;
+    private PurchaseListAdapter adapter;
+    public List<PurchaseHistory> mPurchaseList;
+    private PurchaseHistoryDataSource dataSource;
 
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static final String LOG_TAG = PurchaseHistoryActivity.class.getSimpleName();
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -38,22 +42,22 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.title_home);
-                    break;
+                    startActivity(new Intent(PurchaseHistoryActivity.this, MainActivity.class));
+                    return true;
                 case R.id.navigation_search:
                     mTextMessage.setText(R.string.title_search);
-                    startActivity(new Intent(MainActivity.this, SearchActivity.class));
+                    startActivity(new Intent(PurchaseHistoryActivity.this, SearchActivity.class));
                     return true;
                 case R.id.navigation_purchaseHistory:
                     mTextMessage.setText(R.string.title_purchaseHistory);
-                    startActivity(new Intent(MainActivity.this, PurchaseHistoryActivity.class));
                     return true;
                 case R.id.navigation_favorites:
                     mTextMessage.setText(R.string.title_favorites);
-                    startActivity(new Intent(MainActivity.this, FavoritesActivity.class));
+                    startActivity(new Intent(PurchaseHistoryActivity.this, FavoritesActivity.class));
                     return true;
                 case R.id.navigation_profile:
                     mTextMessage.setText(R.string.title_profile);
-                    startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                    startActivity(new Intent(PurchaseHistoryActivity.this, ProfileActivity.class));
                     return true;
             }
             return false;
@@ -64,55 +68,40 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_history);
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        String sharedPrefs = this.getResources().getString(R.string.SHARED_PREFS);
-        SharedPreferences settings = getSharedPreferences(sharedPrefs, 0);
-
-        dataSource = new OffersDataSource(this);
-        lvOffer = (ListView)findViewById(R.id.listview_offer);
+        dataSource = new PurchaseHistoryDataSource(this);
+        lvPurchase = (ListView)findViewById(R.id.listview_purchases);
 
         Log.d(LOG_TAG, "open database.");
         dataSource.open();
 
-        if (settings.getBoolean("first_launch", true)) {
-            Log.d("LOG_TAG", "First launch");
-
-            Offer offer1 = dataSource.createOffer(new Offer(1,"K&U Brötchen", 0.2, "Brötchen vom Vortag","Edeka Ooser Hauptstr.6 76473 Iffezheim",10));
-            Offer offer2 = dataSource.createOffer(new Offer(2,"K&U Brezen", 0.5, "Brezen vom Vortag","Edeka Ooser Hauptstr.6 76473 Iffezheim",7));
-            Offer offer3 = dataSource.createOffer(new Offer(3,"K&U Tomaten Mozzarella Ciabatta", 1.5, "vor 2h belegt","Edeka Ooser Hauptstr.6 76473 Iffezheim",3));
-
-            settings.edit().putBoolean("first_launch", false).apply();
-        }
-
         showAllListEntries();
 
-        lvOffer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvPurchase.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                 //Do something
-                long offerId = mOfferList.get(position).getId();
-                double price = mOfferList.get(position).getPrice();
-                long contingent = mOfferList.get(position).getContigent();
-                String description = mOfferList.get(position).getDescription();
-                String name = mOfferList.get(position).getName();
-                String adress = mOfferList.get(position).getAddress();
+                long purchaseId = mPurchaseList.get(position).getId();
+                String name = mPurchaseList.get(position).getOfferName();
+                double price = mPurchaseList.get(position).getOfferPrice();
+                long quantity = mPurchaseList.get(position).getQuantity();
+                Date orderDate = mPurchaseList.get(position).getOrderDate();
 
                 //Ex. display msg with product id get from view.getTag
                 Toast.makeText(getApplicationContext(), "Clicked product id =" +view.getTag(), Toast.LENGTH_SHORT).show();
 
                 //Call the next Activity
-                Intent toy = new Intent(MainActivity.this, BuyActivity.class);
-                toy.putExtra("id", offerId);
-                toy.putExtra("price", price);
-                toy.putExtra("contingent", contingent);
-                toy.putExtra("description", description);
+                Intent toy = new Intent(PurchaseHistoryActivity.this, PurchaseDetailsActivity.class);
+                toy.putExtra("id", purchaseId);
                 toy.putExtra("name", name);
-                toy.putExtra("address", adress);
+                toy.putExtra("price", price);
+                toy.putExtra("quantity", quantity);
+                toy.putExtra("orderDate", orderDate);
                 toy.putExtra("position", position);
 
                 startActivity(toy);
@@ -137,10 +126,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showAllListEntries () {
-        mOfferList = dataSource.getAllOffers();
+        mPurchaseList = dataSource.getAllPurchaseHistories();
 
-        adapter = new OfferListAdapter(getApplicationContext(),mOfferList);
-        lvOffer.setAdapter(adapter);
+        adapter = new PurchaseListAdapter(getApplicationContext(),mPurchaseList);
+        lvPurchase.setAdapter(adapter);
     }
 
 }

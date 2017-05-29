@@ -3,13 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.example.david.cheapfood.MainActivity">
 
     <FrameLayout
-        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -22,22 +21,15 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:text="@string/title_home" />
+            android:text="@string/title_profile" />
+
+        <TextView
+            android:id="@+id/test_profile"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:text="Test"/>
 
     </FrameLayout>
-
-    <ListView
-        android:id="@+id/listview_offer"
-        android:layout_width="match_parent"
-        android:layout_height="384dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="0.47"
-        android:divider="#d1d1d1"
-        android:dividerHeight="10dp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp"></ListView>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

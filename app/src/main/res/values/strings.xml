@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">CheapFood</string>
     <string name="button_pay">Checkout with PayPal</string>
-
+    <string name="title_home">Home</string>
+    <string name="title_search">Search</string>
+    <string name="title_purchaseHistory">Purchase History</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="title_profile">Profile</string>
     <string name="SHARED_PREFS">SharedPreferences</string>
-
 </resources>
