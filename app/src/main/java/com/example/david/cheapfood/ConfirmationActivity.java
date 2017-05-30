@@ -7,13 +7,32 @@ package com.example.david.cheapfood;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ConfirmationActivity extends AppCompatActivity {
+public class ConfirmationActivity extends AppCompatActivity implements View.OnClickListener  {
+
+    private Button buttonBack;
+
+    @Override
+    public void onClick(View v) {
+        buttonBack = (Button) findViewById(R.id.btn_back);
+
+        buttonBack.setOnClickListener(this);
+
+        Intent intent = new Intent(this, MainActivity.class);
+
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

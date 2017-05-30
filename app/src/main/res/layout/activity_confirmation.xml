@@ -14,14 +14,16 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        tools:ignore="RtlHardcoded">
 
         <TableRow>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Payment Amount : " />
+                android:text="Payment Amount : "
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/paymentAmount"
@@ -35,7 +37,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Status : " />
+                android:text="Status : "
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/paymentStatus"
@@ -49,7 +52,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Payment Id : " />
+                android:text="Payment Id : "
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/paymentId"
@@ -60,5 +64,17 @@
 
 
     </TableLayout>
+
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="54dp"
+        android:layout_marginStart="83dp"
+        android:onClick="onClick"
+        android:text="Zurück zur Startseite"
+        tools:ignore="HardcodedText" />
 
 </RelativeLayout>

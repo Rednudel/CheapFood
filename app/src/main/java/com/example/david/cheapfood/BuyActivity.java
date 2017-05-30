@@ -107,13 +107,11 @@ public class BuyActivity extends AppCompatActivity implements View.OnClickListen
         //Intent toy = getIntent();
         buttonPay = (Button) findViewById(R.id.bt_buy);
 
-        //double quantity = Double.parseDouble(dropdown.getSelectedItem().toString());
-        //amount = toy.getDoubleExtra("price", 0) * quantity;
-
         long quantity = Long.parseLong(dropdown.getSelectedItem().toString());
         amount = offer.getPrice() * quantity;
-
         purchaseHistory = new PurchaseHistory(1, 1, offer.getName(), offer.getPrice(), quantity, new Date());
+        //double quantity = Double.parseDouble(dropdown.getSelectedItem().toString());
+        //amount = toy.getDoubleExtra("price", 0) * quantity;
 
         buttonPay.setOnClickListener(this);
 

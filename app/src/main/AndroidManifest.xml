@@ -21,6 +21,6 @@
         <activity android:name=".FavoritesActivity"></activity>
         <activity android:name=".ProfileActivity"></activity>
         <activity android:name=".PurchaseDetailsActivity"></activity>
+        <activity android:name=".ConfirmationActivity"></activity>
     </application>
-
 </manifest>
