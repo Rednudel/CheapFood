@@ -1,14 +1,14 @@
 package com.example.david.cheapfood;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,6 +18,7 @@ import com.example.david.cheapfood.Offer.Offer;
 import com.example.david.cheapfood.Offer.OfferListAdapter;
 import com.example.david.cheapfood.Offer.OffersDataSource;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -140,6 +141,15 @@ public class MainActivity extends AppCompatActivity {
         mOfferList = dataSource.getAllOffers();
 
         adapter = new OfferListAdapter(getApplicationContext(),mOfferList);
+
+        for (Iterator<Offer> iter = mOfferList.iterator(); iter.hasNext(); ) {
+            Offer offer = iter.next();
+            if(offer.getContigent() == 0){
+                iter.remove();
+            }
+        }
+
+
         lvOffer.setAdapter(adapter);
     }
 

@@ -42,16 +42,16 @@ public class PurchaseListAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View v = View.inflate(mContext, R.layout.item_offer_list, null);
+        View v = View.inflate(mContext, R.layout.item_purchase_list, null);
         TextView tvName = (TextView)v.findViewById(R.id.tv_name);
         TextView tvPrice = (TextView)v.findViewById(R.id.tv_price);
-        // TextView tvQuantity = (TextView)v.findViewById(R.id.tv_quantity);
-        TextView tvAddress = (TextView)v.findViewById(R.id.tv_address);
+        TextView tvQuantity = (TextView)v.findViewById(R.id.tv_purchaseQuantity);
+        TextView tvOrderDate = (TextView)v.findViewById(R.id.tv_purchaseOrderDate);
         //Set text for TextView
         tvName.setText(mPurchaseList.get(position).getOfferName());
         tvPrice.setText(String.valueOf(mPurchaseList.get(position).getOfferPrice())+ " €");
-        // tvQuantity.setText(String.valueOf(mPurchaseList.get(position).getQuantity()));
-        tvAddress.setText(String.valueOf(mPurchaseList.get(position).getOrderDate()));
+        tvQuantity.setText(String.valueOf(mPurchaseList.get(position).getQuantity()));
+        tvOrderDate.setText(String.valueOf(mPurchaseList.get(position).getOrderDateString()));
 
         //Save product id to tag
         v.setTag(mPurchaseList.get(position).getId());

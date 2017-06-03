@@ -1,22 +1,21 @@
 package com.example.david.cheapfood;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import java.util.Date;
 
-import com.example.david.cheapfood.PurchaseHistory.PurchaseListAdapter;
 import com.example.david.cheapfood.PurchaseHistory.PurchaseHistory;
 import com.example.david.cheapfood.PurchaseHistory.PurchaseHistoryDataSource;
+import com.example.david.cheapfood.PurchaseHistory.PurchaseListAdapter;
 
 import java.util.List;
 
@@ -90,7 +89,7 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
                 String name = mPurchaseList.get(position).getOfferName();
                 double price = mPurchaseList.get(position).getOfferPrice();
                 long quantity = mPurchaseList.get(position).getQuantity();
-                Date orderDate = mPurchaseList.get(position).getOrderDate();
+                String orderDate = mPurchaseList.get(position).getOrderDateString();
 
                 //Ex. display msg with product id get from view.getTag
                 Toast.makeText(getApplicationContext(), "Clicked product id =" +view.getTag(), Toast.LENGTH_SHORT).show();

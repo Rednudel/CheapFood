@@ -1,6 +1,8 @@
 package com.example.david.cheapfood.PurchaseHistory;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class PurchaseHistory {
     private long id;
@@ -8,9 +10,17 @@ public class PurchaseHistory {
     private String offerName;
     private double offerPrice;
     private long quantity;
-    private Date orderDate;
+    private String orderDate;
 
     public PurchaseHistory(long id, long customerId, String offerName, double offerPrice, long quantity, Date orderDate) {
+        this.id = id;
+        this.customerId = customerId;
+        this.offerName = offerName;
+        this.offerPrice = offerPrice;
+        this.quantity = quantity;
+        this.orderDate = setOrderDate(orderDate);
+    }
+    public PurchaseHistory(long id, long customerId, String offerName, double offerPrice, long quantity, String orderDate) {
         this.id = id;
         this.customerId = customerId;
         this.offerName = offerName;
@@ -59,12 +69,22 @@ public class PurchaseHistory {
         this.quantity = quantity;
     }
 
-    public Date getOrderDate() {
+    public String getOrderDateString() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
-        this.orderDate = orderDate;
+    public String setOrderDate(Date orderDate) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.GERMANY);
+        return dateFormat.format(orderDate);
+        //this.orderDate = orderDate;
+    }
+
+    private String getDateTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.GERMANY);
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 
     @Override
