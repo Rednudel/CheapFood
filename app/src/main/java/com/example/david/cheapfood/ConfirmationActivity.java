@@ -26,7 +26,7 @@ public class ConfirmationActivity extends AppCompatActivity implements View.OnCl
         buttonBack.setOnClickListener(this);
 
         Intent intent = new Intent(this, MainActivity.class);
-
+        finish();
         startActivity(intent);
     }
 
@@ -38,7 +38,6 @@ public class ConfirmationActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmation);
-
         //Getting Intent
         Intent intent = getIntent();
 
