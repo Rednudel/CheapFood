@@ -38,6 +38,14 @@ public class BuyActivity extends AppCompatActivity implements View.OnClickListen
     private String paymentAmount;
     private Button buttonPay;
     private Double amount;
+    private Long quantity;
+
+    private Long id;
+    private Double price;
+    private Long contingent;
+    private String name;
+    private String address;
+    private String description;
 
     public static final int PAYPAL_REQUEST_CODE = 123;
 
@@ -60,12 +68,12 @@ public class BuyActivity extends AppCompatActivity implements View.OnClickListen
         //Get the intent that started us to find the parameter (extra)
         Intent toy = getIntent();
         //int id = toy.getIntExtra("id", 0);
-        long id = toy.getLongExtra("id", 0);
-        double price = toy.getDoubleExtra("price", 0);
-        long contingent = toy.getLongExtra("contingent", 0);
-        String name = toy.getStringExtra("name");
-        String address = toy.getStringExtra("address");
-        String description = toy.getStringExtra("description");
+        id = toy.getLongExtra("id", 0);
+        price = toy.getDoubleExtra("price", 0);
+        contingent = toy.getLongExtra("contingent", 0);
+        name = toy.getStringExtra("name");
+        address = toy.getStringExtra("address");
+        description = toy.getStringExtra("description");
 
         offer = new Offer(id, name, price, description, address, contingent);
 
@@ -107,9 +115,11 @@ public class BuyActivity extends AppCompatActivity implements View.OnClickListen
         //Intent toy = getIntent();
         buttonPay = (Button) findViewById(R.id.bt_buy);
 
-        long quantity = Long.parseLong(dropdown.getSelectedItem().toString());
+        quantity = Long.parseLong(dropdown.getSelectedItem().toString());
         amount = offer.getPrice() * quantity;
+
         purchaseHistory = new PurchaseHistory(1, 1, offer.getName(), offer.getPrice(), quantity, new Date());
+        //purchaseHistory = new PurchaseHistory(1, 1, offer.getName(), offer.getPrice(), quantity, new Date());
         //double quantity = Double.parseDouble(dropdown.getSelectedItem().toString());
         //amount = toy.getDoubleExtra("price", 0) * quantity;
 
@@ -122,9 +132,15 @@ public class BuyActivity extends AppCompatActivity implements View.OnClickListen
         startService(intent);
 
         getPayment();
+    }
 
-        offersDS.updateContingent(offer.getId(), offer.getContigent() - quantity);
+    public void onSuccess(){
+        offersDS.open();
+        purchaseHistoryDS.open();
+        offersDS.updateContingent(id, offer.getContigent() - quantity);
         purchaseHistoryDS.createPurchaseHistory(purchaseHistory);
+        offersDS.close();
+        purchaseHistoryDS.close();
     }
 
     //Paypal intent request code to track onActivityResult method
@@ -169,6 +185,7 @@ public class BuyActivity extends AppCompatActivity implements View.OnClickListen
 
                 //if confirmation is not null
                 if (confirm != null) {
+                    onSuccess();
                     try {
                         //Getting the payment details
                         String paymentDetails = confirm.toJSONObject().toString(4);
