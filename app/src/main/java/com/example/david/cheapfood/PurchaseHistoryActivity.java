@@ -54,8 +54,7 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_profile:
                     startActivity(new Intent(PurchaseHistoryActivity.this, ProfileActivity.class));
-                    return true;
-            }
+                    return true;           }
             return false;
         }
 

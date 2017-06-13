@@ -47,7 +47,6 @@ public class PurchaseDetailsActivity extends AppCompatActivity implements View.O
 
         /*TextView tvOrderDate = (TextView) findViewById(R.id.tv_purchaseOrderDate);
         tvOrderDate.setText(orderDate);*/
-
     }
 
     @Override
