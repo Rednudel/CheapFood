@@ -15,9 +15,9 @@ import android.widget.TextView;
 
 public class FavoritesActivity extends AppCompatActivity {
 
-    // private TextView mTextMessage;
+    private TextView mTextMessage;
 
-    /*private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
@@ -37,7 +37,6 @@ public class FavoritesActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_favorites:
                     mTextMessage.setText(R.string.title_favorites);
-                    startActivity(new Intent(FavoritesActivity.this, FavoritesActivity.class));
                     return true;
                 case R.id.navigation_profile:
                     mTextMessage.setText(R.string.title_profile);
@@ -47,19 +46,16 @@ public class FavoritesActivity extends AppCompatActivity {
             return false;
         }
 
-    };*/
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorites);
 
-        /*mTextMessage = (TextView) findViewById(R.id.message);
+        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);*/
-
-        TextView text = (TextView) findViewById(R.id.test_favorites);
-        text.setText("Favorites Activity");
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
     }
 

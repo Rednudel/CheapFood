@@ -40,19 +40,15 @@ public class MainActivity extends AppCompatActivity {
                     mTextMessage.setText(R.string.title_home);
                     break;
                 case R.id.navigation_search:
-                    mTextMessage.setText(R.string.title_search);
                     startActivity(new Intent(MainActivity.this, SearchActivity.class));
                     return true;
                 case R.id.navigation_purchaseHistory:
-                    mTextMessage.setText(R.string.title_purchaseHistory);
                     startActivity(new Intent(MainActivity.this, PurchaseHistoryActivity.class));
                     return true;
                 case R.id.navigation_favorites:
-                    mTextMessage.setText(R.string.title_favorites);
                     startActivity(new Intent(MainActivity.this, FavoritesActivity.class));
                     return true;
                 case R.id.navigation_profile:
-                    mTextMessage.setText(R.string.title_profile);
                     startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                     return true;
             }

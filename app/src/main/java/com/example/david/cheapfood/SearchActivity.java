@@ -19,13 +19,46 @@ import android.widget.TextView;
 
 public class SearchActivity extends AppCompatActivity {
 
+    private TextView mTextMessage;
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    mTextMessage.setText(R.string.title_home);
+                    startActivity(new Intent(SearchActivity.this, MainActivity.class));
+                    return true;
+                case R.id.navigation_search:
+                    mTextMessage.setText(R.string.title_search);
+                    return true;
+                case R.id.navigation_purchaseHistory:
+                    mTextMessage.setText(R.string.title_purchaseHistory);
+                    startActivity(new Intent(SearchActivity.this, PurchaseHistoryActivity.class));
+                    return true;
+                case R.id.navigation_favorites:
+                    mTextMessage.setText(R.string.title_favorites);
+                    startActivity(new Intent(SearchActivity.this, SearchActivity.class));
+                    return true;
+                case R.id.navigation_profile:
+                    mTextMessage.setText(R.string.title_profile);
+                    return true;
+            }
+            return false;
+        }
+
+    };
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        TextView text = (TextView) findViewById(R.id.test_search);
-        text.setText("Search Activity");
+        mTextMessage = (TextView) findViewById(R.id.message);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
     }
 

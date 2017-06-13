@@ -41,22 +41,18 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
                     startActivity(new Intent(PurchaseHistoryActivity.this, MainActivity.class));
                     return true;
                 case R.id.navigation_search:
-                    mTextMessage.setText(R.string.title_search);
                     startActivity(new Intent(PurchaseHistoryActivity.this, SearchActivity.class));
                     return true;
                 case R.id.navigation_purchaseHistory:
                     mTextMessage.setText(R.string.title_purchaseHistory);
                     return true;
                 case R.id.navigation_favorites:
-                    mTextMessage.setText(R.string.title_favorites);
                     startActivity(new Intent(PurchaseHistoryActivity.this, FavoritesActivity.class));
                     return true;
                 case R.id.navigation_profile:
-                    mTextMessage.setText(R.string.title_profile);
                     startActivity(new Intent(PurchaseHistoryActivity.this, ProfileActivity.class));
                     return true;
             }
@@ -90,7 +86,12 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
                 String name = mPurchaseList.get(position).getOfferName();
                 double price = mPurchaseList.get(position).getOfferPrice();
                 long quantity = mPurchaseList.get(position).getQuantity();
-                Date orderDate = mPurchaseList.get(position).getOrderDate();
+                // String orderDate = mPurchaseList.get(position).getOrderDate().toString();
+
+                double totalPrice = price * quantity;
+                totalPrice = totalPrice * 100;
+                totalPrice = Math.round(totalPrice);
+                totalPrice = totalPrice / 100;
 
                 //Ex. display msg with product id get from view.getTag
                 Toast.makeText(getApplicationContext(), "Clicked product id =" +view.getTag(), Toast.LENGTH_SHORT).show();
@@ -101,8 +102,9 @@ public class PurchaseHistoryActivity extends AppCompatActivity {
                 toy.putExtra("name", name);
                 toy.putExtra("price", price);
                 toy.putExtra("quantity", quantity);
-                toy.putExtra("orderDate", orderDate);
+                // toy.putExtra("orderDate", orderDate);
                 toy.putExtra("position", position);
+                toy.putExtra("total price", totalPrice);
 
                 startActivity(toy);
             }
