@@ -8,12 +8,8 @@ import android.util.Log;
 
 import com.example.david.cheapfood.DbHelper;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by andre on 16.05.2017.
@@ -22,7 +18,7 @@ import java.util.Locale;
 public class PurchaseHistoryDataSource {
 
     private static final String LOG_TAG = PurchaseHistoryDataSource.class.getSimpleName();
-    SimpleDateFormat parser = new SimpleDateFormat("EEE MMM d HH:mm:ss zzz yyyy", Locale.GERMANY);
+    //SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.GERMANY);
 
     private SQLiteDatabase database;
     private DbHelper dbHelper;
@@ -57,7 +53,7 @@ public class PurchaseHistoryDataSource {
         values.put(DbHelper.COLUMN_OFFERNAME, purchaseHistory.getOfferName());
         values.put(DbHelper.COLUMN_OFFERPRICE, purchaseHistory.getOfferPrice());
         values.put(DbHelper.COLUMN_QUANTITY, purchaseHistory.getQuantity());
-        values.put(DbHelper.COLUMN_ORDERDATE, purchaseHistory.getOrderDate().toString());
+        values.put(DbHelper.COLUMN_ORDERDATE, purchaseHistory.getOrderDateString());
 
         long insertId = database.insert(DbHelper.PURCHASEHISTORY_TABLE, null, values);
 
@@ -85,13 +81,7 @@ public class PurchaseHistoryDataSource {
         String offerName = cursor.getString(idOfferName);
         double offerPrice = cursor.getDouble(idOfferPrice);
         long quantity = cursor.getLong(idQuantity);
-
-        Date orderDate = null;
-        try {
-            orderDate = parser.parse(cursor.getString(idOrderDate));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        String orderDate = cursor.getString(idOrderDate);
 
         return new PurchaseHistory(id, customerId, offerName, offerPrice, quantity, orderDate);
     }

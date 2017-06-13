@@ -17,7 +17,7 @@ import java.util.List;
 public class OfferListAdapter extends BaseAdapter{
 
     private Context mContext;
-    private List<Offer> mOfferList;
+    public List<Offer> mOfferList;
 
     //Consturctor
     public OfferListAdapter (Context mContext, List<Offer> mOfferList){
