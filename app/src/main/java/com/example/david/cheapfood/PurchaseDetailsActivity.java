@@ -37,7 +37,7 @@ public class PurchaseDetailsActivity extends AppCompatActivity implements View.O
         tvPurchaseDetails.setText(name);
 
         TextView tvPrice = (TextView) findViewById(R.id.tv_purchasePrice);
-        tvPrice.setText("Preis " + price + " Euro");
+        tvPrice.setText("Preis: " + price + " Euro");
 
         TextView tvQuantity = (TextView) findViewById(R.id.tv_purchaseQuantity);
         tvQuantity.setText("Menge: " + quantity + " Stück");

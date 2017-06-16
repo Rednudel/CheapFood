@@ -37,7 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_favorites:
                     mTextMessage.setText(R.string.title_favorites);
-                    startActivity(new Intent(ProfileActivity.this, SearchActivity.class));
+                    startActivity(new Intent(ProfileActivity.this, FavoritesActivity.class));
                     return true;
                 case R.id.navigation_profile:
                     mTextMessage.setText(R.string.title_profile);

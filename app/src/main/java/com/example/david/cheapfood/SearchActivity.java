@@ -40,10 +40,11 @@ public class SearchActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_favorites:
                     mTextMessage.setText(R.string.title_favorites);
-                    startActivity(new Intent(SearchActivity.this, SearchActivity.class));
+                    startActivity(new Intent(SearchActivity.this, FavoritesActivity.class));
                     return true;
                 case R.id.navigation_profile:
                     mTextMessage.setText(R.string.title_profile);
+                    startActivity(new Intent(SearchActivity.this, ProfileActivity.class));
                     return true;
             }
             return false;
